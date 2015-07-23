@@ -5,7 +5,7 @@ var app = express(); //define the app using express
 var path = require('path');
 // var multer = require('multer');
 var bodyParser = require('body-parser');
-var port = process.env.PORT || 8080; //set the port 
+var port = process.env.PORT || 8124; //set the port 
 
 var routes = require('./routes');
 var home = require('./routes/home');
