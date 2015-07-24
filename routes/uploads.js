@@ -3,29 +3,24 @@ var router = express.Router();
 var util = require("util"); 
 var fs = require("fs"); 
 var multer = require('multer');
-var upload = multer({ dest: './uploads/' });
+var upload = multer({ dest: './uploads',
+			limits: {fileSize: 1000000, files:2}, });
  
 router.get('/', function(req, res) { 
   res.render('uploadPage'); 
 }); 
- 
-router.post('/upload', function(req, res, next){ 
-	if (req.files) { 
-		console.log(util.inspect(req.files));
-		if (req.files.myFile.size === 0) {
-		            return next(new Error("Hey, first would you select a file?"));
-		}
-		fs.exists(req.files.myFile.path, function(exists) { 
-			if(exists) { 
-				res.end("Got your file!"); 
-			} else { 
-				res.end("Well, there is no magic for those who don’t believe in it!"); 
-			} 
-		}); 
-	} 
-});
-// var app = express()
-// app.post('/profile', upload.single('avatar'), function (req, res, next) {
-//   // req.file is the `avatar` file
-// })
+
+router.post('/upload', upload.single('avatar'), function (req, res, next) {
+  // req.file is the `avatar` file
+  console.log('post request successfully received');
+  console.log(req.file);
+  console.log();  
+
+  // Status handling
+ res.status(200).send('File uploaded!');
+ // res.status(404).send('Sorry, we cannot find that!');
+ //   // res.status(500).send({ error: 'something blew up' });
+ //     // res.send("File uploaded.")
+})
+
 module.exports = router;
