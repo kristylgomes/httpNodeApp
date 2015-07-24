@@ -3,7 +3,7 @@ var router = express.Router();
 var util = require("util"); 
 var fs = require("fs"); 
 var multer = require('multer');
-var upload = multer({ dest: './uploads',
+var upload = multer({ dest: './public/images/uploads',
 			limits: {fileSize: 1000000, files:2}, });
  
 router.get('/', function(req, res) { 
